@@ -101,7 +101,7 @@ export default function AnimatedHero() {
           >
             <div className="hero__avatar-ring-inner">
               <div className="hero__avatar">
-                <span className="hero__avatar-emoji">👨‍💻</span>
+                <span className="hero__avatar-emoji">👩‍💻</span>
               </div>
             </div>
           </motion.div>

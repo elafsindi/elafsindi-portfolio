@@ -114,7 +114,7 @@ export default function Hero() {
           <div className="hero__avatar-ring">
             <div className="hero__avatar-ring-inner">
               <div className="hero__avatar">
-                <span className="hero__avatar-emoji">👨‍💻</span>
+                <span className="hero__avatar-emoji">👩‍💻</span>
               </div>
             </div>
           </div>

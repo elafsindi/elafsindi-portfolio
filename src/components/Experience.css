@@ -1,0 +1,160 @@
+.timeline-horizontal-container {
+  width: 100%;
+  padding: 2rem 0 3rem 0;
+}
+
+.timeline-horizontal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  position: relative;
+  padding-top: 50px; /* Space for the line and dots */
+}
+
+/* The Continuous Horizontal Line */
+.timeline-horizontal::before {
+  content: '';
+  position: absolute;
+  top: 15px; /* Center of the dots */
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(var(--primary-rgb), 0.2);
+  z-index: 0;
+}
+
+.timeline-horizontal__item {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The Dot */
+.timeline-horizontal__dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -45px; /* Aligned with the horizontal line */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 4px solid var(--primary);
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.2);
+  transition: var(--transition);
+  z-index: 1;
+}
+
+/* Hover Effects */
+.timeline-horizontal__item:hover .timeline-horizontal__dot {
+  background: var(--primary);
+  box-shadow: 0 0 0 6px rgba(var(--primary-rgb), 0.3);
+}
+
+.timeline-horizontal__item--current .timeline-horizontal__dot {
+  background: var(--primary);
+  animation: pulse 2s infinite;
+}
+
+.timeline-horizontal__content {
+  padding: 1.8rem;
+  transition: var(--transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center; /* Center the text for narrower side-by-side cards */
+}
+
+.timeline-horizontal__item:hover .timeline-horizontal__content {
+  transform: translateY(-10px);
+}
+
+/* Internal Card Elements */
+.timeline-horizontal__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.timeline-horizontal__role {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.timeline-horizontal__period {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: rgba(var(--primary-rgb), 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+}
+
+.timeline-horizontal__company {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.timeline-horizontal__desc {
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  flex-grow: 1;
+}
+
+.timeline-horizontal__tech {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: auto;
+}
+
+.timeline-horizontal__tech .tag {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+}
+
+/* Responsive Grid Adjustments */
+@media (max-width: 1024px) {
+  .timeline-horizontal {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 4rem;
+  }
+  
+  /* Create two horizontal lines for 2 rows */
+  .timeline-horizontal::before {
+    display: none; /* Hide single line */
+  }
+  
+  /* Add individual lines for items to mimic continuous flow */
+  .timeline-horizontal__item::before {
+    content: '';
+    position: absolute;
+    top: -35px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(var(--primary-rgb), 0.2);
+    z-index: 0;
+  }
+  
+  .timeline-horizontal__dot {
+    top: -45px;
+  }
+}
+
+@media (max-width: 600px) {
+  .timeline-horizontal {
+    grid-template-columns: 1fr;
+    row-gap: 3rem;
+  }
+}

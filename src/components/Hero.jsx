@@ -36,7 +36,7 @@ const TypewriterText = ({ texts }) => {
 };
 
 export default function Hero() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   return (
     <section className="hero bg-grid fade-in" id="hero">
@@ -83,9 +83,15 @@ export default function Hero() {
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             >
               {t.hero.cta}
-              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              {lang === 'ar' ? (
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                </svg>
+              ) : (
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              )}
             </button>
             <a href="/cv.pdf" id="hero-download-cv" className="btn btn-outline" download>
               {t.hero.ctaSecondary}

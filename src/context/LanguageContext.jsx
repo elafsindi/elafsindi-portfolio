@@ -15,7 +15,7 @@ export function LanguageProvider({ children }) {
     document.documentElement.setAttribute('lang', lang);
     document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
     // Update title for current language
-    document.title = lang === 'ar' ? 'إيلاف سندي | مطور واجهات أمامية' : 'Elaf Sindi | Frontend Developer';
+    document.title = lang === 'ar' ? 'إيلاف سندي | مطورة واجهات أمامية' : 'Elaf Sindi | Frontend Developer';
   }, [lang]);
 
   const toggleLang = () => setLang(prev => prev === 'en' ? 'ar' : 'en');

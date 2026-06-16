@@ -1,6 +1,7 @@
 .timeline-horizontal-container {
   width: 100%;
-  padding: 2rem 0 3rem 0;
+  padding: 0 0 3rem 0;
+  margin-top: -3rem;
 }
 
 .timeline-horizontal {
@@ -155,6 +156,62 @@
 @media (max-width: 600px) {
   .timeline-horizontal {
     grid-template-columns: 1fr;
-    row-gap: 3rem;
+    row-gap: 2rem;
+    padding-left: 40px;
+    position: relative;
+  }
+  
+  [dir="rtl"] .timeline-horizontal {
+    padding-left: 0;
+    padding-right: 40px;
+  }
+
+  .timeline-horizontal::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 14px;
+    width: 2px;
+    background: rgba(var(--primary-rgb), 0.2);
+  }
+
+  [dir="rtl"] .timeline-horizontal::after {
+    left: auto;
+    right: 14px;
+  }
+
+  .timeline-horizontal__item::before {
+    display: none; /* Hide top horizontal lines */
+  }
+
+  .timeline-horizontal__item {
+    margin-top: 0;
+  }
+
+  .timeline-horizontal__dot {
+    top: 30px;
+    left: -26px;
+    transform: translateX(-50%);
+  }
+
+  [dir="rtl"] .timeline-horizontal__dot {
+    left: auto;
+    right: -26px;
+    transform: translateX(50%);
+  }
+  
+  .timeline-horizontal__content {
+    padding: 1.5rem;
+    text-align: left;
+    align-items: flex-start;
+  }
+  
+  [dir="rtl"] .timeline-horizontal__content {
+    text-align: right;
+  }
+
+  .timeline-horizontal__header {
+    align-items: flex-start;
   }
 }

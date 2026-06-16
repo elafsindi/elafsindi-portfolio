@@ -2,9 +2,9 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext();
 
-export function ThemeProvider({ children }) {
+  export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('portfolio-theme') || 'light';
+    return localStorage.getItem('portfolio-theme') || 'dark';
   });
 
   useEffect(() => {

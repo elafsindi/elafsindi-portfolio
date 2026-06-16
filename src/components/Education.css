@@ -9,7 +9,7 @@
 .education-card {
   display: flex;
   gap: 2rem;
-  padding: 2.5rem;
+  padding: 3rem 3.5rem;
   transition: var(--transition);
 }
 
@@ -70,7 +70,8 @@
 
 .education-card__desc {
   color: var(--text-light);
-  line-height: 1.6;
+  line-height: 1.8;
+  font-size: 1.05rem;
   margin: 0;
 }
 

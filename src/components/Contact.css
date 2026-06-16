@@ -1,3 +1,7 @@
+#contact {
+  margin-top: -3rem;
+}
+
 .contact__content {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -144,6 +148,14 @@ textarea.form-control {
   }
   
   .contact__form-wrapper {
-    padding: 2rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact__input,
+  .contact__textarea {
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
   }
 }

@@ -23,7 +23,7 @@ export default function Navbar() {
     { name: t.nav.projects, href: '#projects' },
     { name: t.nav.experience, href: '#experience' },
     { name: t.nav.education, href: '#education' },
-    { name: t.nav.blog, href: '#blog' },
+    // { name: t.nav.blog, href: '#blog' },
     { name: t.nav.contact, href: '#contact' },
   ];
 

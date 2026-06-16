@@ -16,7 +16,7 @@ export default function StaticPortfolio() {
       <Projects />
       <Experience />
       <Education />
-      <Blog />
+      {/* <Blog /> */}
       <Contact />
     </>
   );

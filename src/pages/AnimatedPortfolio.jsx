@@ -32,9 +32,9 @@ export default function AnimatedPortfolio() {
         <Education />
       </AnimatedSection>
       
-      <AnimatedSection>
+      {/* <AnimatedSection>
         <Blog />
-      </AnimatedSection>
+      </AnimatedSection> */}
       
       <AnimatedSection>
         <Contact />

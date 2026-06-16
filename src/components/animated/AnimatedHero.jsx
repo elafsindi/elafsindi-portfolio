@@ -85,6 +85,22 @@ export default function AnimatedHero() {
             >
               {t.hero.ctaSecondary}
             </motion.a>
+            {[
+              { icon: 'github', href: t.contact.social.github, label: 'GitHub' },
+              { icon: 'linkedin', href: t.contact.social.linkedin, label: 'LinkedIn' },
+            ].map(({ icon, href, label }) => (
+              <motion.a 
+                key={icon}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline"
+              >
+                {label}
+              </motion.a>
+            ))}
           </motion.div>
         </motion.div>
 
@@ -101,7 +117,7 @@ export default function AnimatedHero() {
           >
             <div className="hero__avatar-ring-inner">
               <div className="hero__avatar">
-                <span className="hero__avatar-emoji">👩‍💻</span>
+                <span className="hero__avatar-logo">&lt;ES/&gt;</span>
               </div>
             </div>
           </motion.div>

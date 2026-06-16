@@ -98,9 +98,8 @@ export default function Hero() {
           {/* Social Links */}
           <div className="hero__socials fade-in" style={{ animationDelay: '0.6s' }}>
             {[
-              { icon: 'github', href: 'https://github.com', label: 'GitHub' },
-              { icon: 'linkedin', href: 'https://linkedin.com', label: 'LinkedIn' },
-              { icon: 'twitter', href: 'https://twitter.com', label: 'Twitter' },
+              { icon: 'github', href: t.contact.social.github, label: 'GitHub' },
+              { icon: 'linkedin', href: t.contact.social.linkedin, label: 'LinkedIn' },
             ].map(({ icon, href, label }) => (
               <a key={icon} href={href} target="_blank" rel="noreferrer" className="hero__social-link" aria-label={label}>
                 <SocialIcon name={icon} />
@@ -111,22 +110,48 @@ export default function Hero() {
 
         {/* Right: Visual Card */}
         <div className="hero__visual fade-in" style={{ animationDelay: '0.3s' }}>
-          <div className="hero__avatar-ring">
-            <div className="hero__avatar-ring-inner">
-              <div className="hero__avatar">
-                <span className="hero__avatar-emoji">👩‍💻</span>
+          <div className="hero__code-glow" />
+
+          <div className="hero__code-card">
+            <div className="hero__code-header">
+              <div className="hero__code-dots">
+                <span className="hero__code-dot hero__code-dot--red"></span>
+                <span className="hero__code-dot hero__code-dot--yellow"></span>
+                <span className="hero__code-dot hero__code-dot--green"></span>
               </div>
+              <div className="hero__code-title">&lt;ES/&gt;</div>
+            </div>
+
+            <div className="hero__code-body">
+              <pre className="hero__code-snippet">
+                <code>
+                  <span className="code-keyword">const</span> <span className="code-variable">developer</span> = {'{'}<br />
+                  &nbsp;&nbsp;<span className="code-property">name</span>: <span className="code-string">"Elaf Sindi"</span>,<br />
+                  &nbsp;&nbsp;<span className="code-property">role</span>: <span className="code-string">"Front-End Developer"</span>,<br />
+                  &nbsp;&nbsp;<span className="code-property">skills</span>: [<span className="code-string">"React"</span>, <span className="code-string">"JavaScript"</span>, <span className="code-string">"Next.js"</span>]<br />
+                  {'}'};<span className="hero__code-cursor"></span>
+                </code>
+              </pre>
             </div>
           </div>
+
+          {/* Visual Particles */}
+          <span className="hero__visual-particle hero__visual-particle--1" />
+          <span className="hero__visual-particle hero__visual-particle--2" />
+          <span className="hero__visual-particle hero__visual-particle--3" />
+
           {/* Floating badges */}
           <div className="hero__floating hero__floating--1">
             <span>⚡</span> React
           </div>
           <div className="hero__floating hero__floating--2">
-            <span>🎨</span> UI/UX
+            <span>💻</span> JavaScript
           </div>
           <div className="hero__floating hero__floating--3">
             <span>🚀</span> Next.js
+          </div>
+          <div className="hero__floating hero__floating--4">
+            <span>🌊</span> Tailwind CSS
           </div>
         </div>
       </div>

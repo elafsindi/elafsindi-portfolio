@@ -1,31 +1,74 @@
 import { useState, useEffect } from 'react';
 import { useLang } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, ArrowRight, ArrowLeft } from 'lucide-react';
 import './Navbar.css';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const { lang, toggleLang, t } = useLang();
   const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
+
+      // Scroll Spy for active section
+      const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'education', 'contact'];
+      let current = '';
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            current = section;
+            break;
+          }
+        }
+      }
+
+      if (current && current !== 'hero') {
+        setActiveSection(current);
+      } else if (window.scrollY < 100) {
+        setActiveSection('');
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: t.nav.about, href: '#about' },
-    { name: t.nav.skills, href: '#skills' },
-    { name: t.nav.projects, href: '#projects' },
-    { name: t.nav.experience, href: '#experience' },
-    { name: t.nav.education, href: '#education' },
-    // { name: t.nav.blog, href: '#blog' },
-    { name: t.nav.contact, href: '#contact' },
+    { id: 'about', name: t.nav.about, href: '#about' },
+    { id: 'skills', name: t.nav.skills, href: '#skills' },
+    { id: 'projects', name: t.nav.projects, href: '#projects' },
+    { id: 'experience', name: t.nav.experience, href: '#experience' },
+    { id: 'education', name: t.nav.education, href: '#education' },
+    { id: 'contact', name: t.nav.contact, href: '#contact' },
   ];
+
+  // Framer Motion Variants for Full Screen Menu
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.3, ease: 'easeInOut' }
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: 'easeOut', staggerChildren: 0.05, delayChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    closed: { opacity: 0, y: 10 },
+    open: { opacity: 1, y: 0, transition: { duration: 0.3 } }
+  };
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
@@ -40,8 +83,11 @@ export default function Navbar() {
         <div className="navbar__menu">
           <ul className="navbar__list">
             {navLinks.map((link) => (
-              <li key={link.name}>
-                <a href={link.href} className="navbar__link">
+              <li key={link.id}>
+                <a
+                  href={link.href}
+                  className={`navbar__link ${activeSection === link.id ? 'active' : ''}`}
+                >
                   {link.name}
                 </a>
               </li>
@@ -66,44 +112,79 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          className="navbar__mobile-toggle"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <div className={`hamburger ${menuOpen ? 'active' : ''}`}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </button>
-
-        {/* Mobile Nav */}
-        {menuOpen && (
-          <div className="navbar__mobile-menu fade-in">
-            <ul className="navbar__mobile-list">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="navbar__mobile-link"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <div className="navbar__mobile-actions">
-              <button onClick={toggleTheme} className="navbar__action-btn">
-                {isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
-              </button>
-              <button onClick={toggleLang} className="btn btn-outline">
-                {t.nav.toggleLang}
-              </button>
+        {!menuOpen && (
+          <button
+            className="navbar__mobile-toggle"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Toggle menu"
+          >
+            <div className="hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
-          </div>
+          </button>
         )}
+
+        {/* Full Screen Minimal Mobile Menu */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              className="navbar__mobile-fullscreen"
+              variants={menuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+            >
+              <div className="navbar__mobile-header">
+                <a href="#hero" className="navbar__logo" onClick={() => setMenuOpen(false)}>
+                  <span className="navbar__logo-bracket">&lt;</span>
+                  <span className="navbar__logo-text">ES</span>
+                  <span className="navbar__logo-bracket">/&gt;</span>
+                </a>
+                <button className="navbar__mobile-close" onClick={() => setMenuOpen(false)}>
+                  <X size={28} strokeWidth={1.5} />
+                </button>
+              </div>
+
+              <div className="navbar__mobile-content">
+                <ul className="navbar__mobile-list">
+                  {navLinks.map((link) => {
+                    const isActive = activeSection === link.id;
+                    return (
+                      <motion.li key={link.id} variants={itemVariants}>
+                        <a
+                          href={link.href}
+                          className={`navbar__mobile-link ${isActive ? 'active' : ''}`}
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          <span className="navbar__mobile-label">{link.name}</span>
+                          <span className="navbar__mobile-arrow">
+                            {lang === 'ar' ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
+                          </span>
+                        </a>
+                      </motion.li>
+                    );
+                  })}
+                </ul>
+
+                <motion.div className="navbar__mobile-footer" variants={itemVariants}>
+                  <div className="navbar__mobile-controls">
+                    {/* Theme Toggle Button */}
+                    <button className="theme-toggle-modern" onClick={toggleTheme}>
+                      {isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
+                    </button>
+
+                    {/* Language Toggle Button */}
+                    <button className="theme-toggle-modern" onClick={toggleLang}>
+                      {lang === 'ar' ? '🌐 العربية' : '🌐 English'}
+                    </button>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );

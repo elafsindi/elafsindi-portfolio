@@ -10,7 +10,15 @@ const EMAILJS_PUBLIC_KEY  = 'BLsdTxWkIYx1SxIeU';
 export default function Contact() {
   const { t } = useLang();
   const formRef = useRef();
-  const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  const [status, setStatus] = useState('idle');
+
+  // Convert Arabic-Indic numerals (٠١٢٣٤٥٦٧٨٩) to Western digits
+  const toWesternDigits = (str) =>
+    str.replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+
+  const handlePhoneInput = (e) => {
+    e.target.value = toWesternDigits(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,6 +75,7 @@ export default function Contact() {
                   type="tel" 
                   name="phone" 
                   placeholder={t.contact.phonePlaceholder} 
+                  onChange={handlePhoneInput}
                   required 
                   className="form-control"
                 />

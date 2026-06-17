@@ -1,6 +1,11 @@
 import { useState, useRef } from 'react';
 import { useLang } from '../context/LanguageContext';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
+
+const EMAILJS_SERVICE_ID  = 'service_portfolio_elaf';
+const EMAILJS_TEMPLATE_ID = 'template_portfolio_elaf';
+const EMAILJS_PUBLIC_KEY  = 'BLsdTxWkIYx1SxIeU';
 
 export default function Contact() {
   const { t } = useLang();
@@ -10,16 +15,20 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus('loading');
-    
-    // Simulate email send
-    setTimeout(() => {
-      setStatus('success');
-      formRef.current.reset();
-      
-      setTimeout(() => {
-        setStatus('idle');
-      }, 5000);
-    }, 1500);
+
+    emailjs
+      .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current, {
+        publicKey: EMAILJS_PUBLIC_KEY,
+      })
+      .then(() => {
+        setStatus('success');
+        formRef.current.reset();
+        setTimeout(() => setStatus('idle'), 5000);
+      })
+      .catch(() => {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 5000);
+      });
   };
 
   return (
@@ -37,7 +46,7 @@ export default function Contact() {
               <div className="form-group">
                 <input 
                   type="text" 
-                  name="user_name" 
+                  name="name" 
                   placeholder={t.contact.namePlaceholder} 
                   required 
                   className="form-control"
@@ -46,7 +55,7 @@ export default function Contact() {
               <div className="form-group">
                 <input 
                   type="email" 
-                  name="user_email" 
+                  name="email" 
                   placeholder={t.contact.emailPlaceholder} 
                   required 
                   className="form-control"

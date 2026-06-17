@@ -16,8 +16,16 @@ export default function Contact() {
     e.preventDefault();
     setStatus('loading');
 
+    const form = formRef.current;
+    const templateParams = {
+      name:    form.name.value,
+      phone:   form.phone.value,
+      subject: form.subject.value,
+      message: form.message.value,
+    };
+
     emailjs
-      .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current, {
+      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, {
         publicKey: EMAILJS_PUBLIC_KEY,
       })
       .then(() => {
@@ -25,9 +33,11 @@ export default function Contact() {
         formRef.current.reset();
         setTimeout(() => setStatus('idle'), 5000);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error('EmailJS error:', err);
         setStatus('error');
         setTimeout(() => setStatus('idle'), 5000);
+
       });
   };
 

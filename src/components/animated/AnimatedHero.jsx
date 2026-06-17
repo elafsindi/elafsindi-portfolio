@@ -1,7 +1,17 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '../../context/LanguageContext';
 import '../Hero.css'; // Reuse styles but override animations
+
+const heroParticles = Array.from({ length: 15 }, (_, i) => {
+  const seed = i + 1;
+  return {
+    left: `${(seed * 23) % 100}%`,
+    animationDelay: `${(seed * 1.4) % 8}s`,
+    animationDuration: `${8 + ((seed * 1.1) % 6)}s`,
+    width: `${2 + ((seed * 0.9) % 4)}px`,
+    height: `${2 + ((seed * 0.9) % 4)}px`,
+  };
+});
 
 export default function AnimatedHero() {
   const { t } = useLang();
@@ -34,14 +44,8 @@ export default function AnimatedHero() {
       />
 
       {/* Particles (Dots) */}
-      {[...Array(15)].map((_, i) => (
-        <span key={i} className="hero__particle" style={{
-          left: `${Math.random() * 100}%`,
-          animationDelay: `${Math.random() * 8}s`,
-          animationDuration: `${8 + Math.random() * 6}s`,
-          width: `${2 + Math.random() * 4}px`,
-          height: `${2 + Math.random() * 4}px`,
-        }} />
+      {heroParticles.map((style, i) => (
+        <span key={i} className="hero__particle" style={style} />
       ))}
 
       <div className="container hero__content">

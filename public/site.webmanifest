@@ -1,0 +1,17 @@
+{
+  "name": "Elaf Sindi Portfolio",
+  "short_name": "Elaf Sindi",
+  "description": "Portfolio of Elaf Sindi, a Saudi Front-End Developer specializing in React, JavaScript, Laravel integration, and modern web applications.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

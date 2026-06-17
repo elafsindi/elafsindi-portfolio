@@ -15,7 +15,7 @@ export default function Experience() {
 
         <div className="timeline-horizontal-container fade-in" style={{ animationDelay: '0.2s' }}>
           <div className="timeline-horizontal">
-            {t.experience.items.map((item, index) => (
+            {t.experience.items.map((item) => (
               <div 
                 key={item.id} 
                 className={`timeline-horizontal__item ${item.type === 'current' ? 'timeline-horizontal__item--current' : ''}`}

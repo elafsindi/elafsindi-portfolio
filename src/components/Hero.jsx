@@ -2,9 +2,19 @@ import { useEffect, useState } from 'react';
 import { useLang } from '../context/LanguageContext';
 import './Hero.css';
 
+const heroParticles = Array.from({ length: 12 }, (_, i) => {
+  const seed = i + 1;
+  return {
+    left: `${(seed * 29) % 100}%`,
+    animationDelay: `${(seed * 1.7) % 8}s`,
+    animationDuration: `${8 + ((seed * 1.3) % 6)}s`,
+    width: `${2 + ((seed * 0.7) % 3)}px`,
+    height: `${2 + ((seed * 0.7) % 3)}px`,
+  };
+});
+
 const TypewriterText = ({ texts }) => {
   const [idx, setIdx] = useState(0);
-  const [displayed, setDisplayed] = useState('');
   const [deleting, setDeleting] = useState(false);
   const [charIdx, setCharIdx] = useState(0);
 
@@ -19,13 +29,16 @@ const TypewriterText = ({ texts }) => {
     } else if (deleting && charIdx > 0) {
       timeout = setTimeout(() => setCharIdx(c => c - 1), 40);
     } else if (deleting && charIdx === 0) {
-      setDeleting(false);
-      setIdx(i => (i + 1) % texts.length);
+      timeout = setTimeout(() => {
+        setDeleting(false);
+        setIdx(i => (i + 1) % texts.length);
+      }, 40);
     }
 
-    setDisplayed(current.slice(0, charIdx));
     return () => clearTimeout(timeout);
   }, [charIdx, deleting, idx, texts]);
+
+  const displayed = texts[idx].slice(0, charIdx);
 
   return (
     <span className="typewriter">
@@ -46,14 +59,8 @@ export default function Hero() {
       <div className="orb orb-pink hero__orb hero__orb--3" />
 
       {/* Particles */}
-      {[...Array(12)].map((_, i) => (
-        <span key={i} className="hero__particle" style={{
-          left: `${Math.random() * 100}%`,
-          animationDelay: `${Math.random() * 8}s`,
-          animationDuration: `${8 + Math.random() * 6}s`,
-          width: `${2 + Math.random() * 3}px`,
-          height: `${2 + Math.random() * 3}px`,
-        }} />
+      {heroParticles.map((style, i) => (
+        <span key={i} className="hero__particle" style={style} />
       ))}
 
       <div className="container hero__content">

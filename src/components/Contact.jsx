@@ -54,9 +54,9 @@ export default function Contact() {
               </div>
               <div className="form-group">
                 <input 
-                  type="email" 
-                  name="email" 
-                  placeholder={t.contact.emailPlaceholder} 
+                  type="tel" 
+                  name="phone" 
+                  placeholder={t.contact.phonePlaceholder} 
                   required 
                   className="form-control"
                 />
